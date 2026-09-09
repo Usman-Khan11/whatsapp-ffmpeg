@@ -32,7 +32,7 @@ app.post("/convert/video", upload.single("file"), (req, res) => {
    const output = `/tmp/${id}.mp4`;
 
    const inputFilename = req.file.originalname;
-   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + ".mp4";
+   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + "_" + id + ".mp4";
 
    execFile(
       "ffmpeg",
@@ -93,7 +93,7 @@ app.post("/convert/audio", upload.single("file"), (req, res) => {
    const output = `/tmp/${id}.ogg`;
 
    const inputFilename = req.file.originalname;
-   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + ".ogg";
+   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + "_" + id + ".ogg";
 
    execFile("ffmpeg",
       [

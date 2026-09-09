@@ -90,10 +90,10 @@ app.post("/convert/audio", upload.single("file"), (req, res) => {
    const id = crypto.randomUUID();
 
    const input = req.file.path;
-   const output = `/tmp/${id}.opus`;
+   const output = `/tmp/${id}.ogg`;
 
    const inputFilename = req.file.originalname;
-   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + ".opus";
+   const outputFilename = path.basename(inputFilename, path.extname(inputFilename)) + ".ogg";
 
    execFile("ffmpeg",
       [
@@ -101,9 +101,11 @@ app.post("/convert/audio", upload.single("file"), (req, res) => {
          "-i", input,
 
          "-vn",
-
          "-c:a", "libopus",
-         "-b:a", "128k",
+         "-b:a", "32k",
+         "-ar", "48000",
+         "-ac", "1",
+         "-f", "ogg",
 
          output
       ], (error, stdout, stderr) => {
